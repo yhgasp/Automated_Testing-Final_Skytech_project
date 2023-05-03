@@ -23,7 +23,9 @@ public class RegisterAndLoginV2 extends BasePage {
     private static final By loginUsernameField = By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/form/div/div/table/tbody/tr[2]/td[1]/div[1]/div[1]/div[2]/input");
     private static final By loginPasswordField = By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/form/div/div/table/tbody/tr[2]/td[1]/div[1]/div[2]/div[2]/input");
 
-    //Registration test case array
+    /*Registration test case array
+    first name - last name, phone, email, password, repeat password, terms, gdpr, marketing
+    terms, gdpr and marketing strings are converted to booleans in the method that uses array data */
     private static final String[][] regTestCases = {
             //valid credentials
             {"Vardenis", "Pavardenis", "+37060000000", "email@mail.com", "Test123!", "Test123!", "true", "true", "false"},
@@ -49,14 +51,14 @@ public class RegisterAndLoginV2 extends BasePage {
 
 
             //enter basic registration info
-            driver.findElement(regFirstNameField).sendKeys(regTestCases[i][0]); //send first name
+            driver.findElement(regFirstNameField).sendKeys(regTestCases[i][0]); // first name
             driver.findElement(regLastNameField).sendKeys(regTestCases[i][1]); //last name
             driver.findElement(regPhoneField).sendKeys(regTestCases[i][2]); //phone
             driver.findElement(regEmailField).sendKeys(regTestCases[i][3]); //email
             driver.findElement(regPasswordField).sendKeys(regTestCases[i][4]); //password
             driver.findElement(regRepeatPasswordField).sendKeys(regTestCases[i][5]); //repeat password
 
-            //if terms parameter == true, acknowlege terms and conditions
+            //if terms parameter == true, acknowledge terms and conditions
             if (Boolean.parseBoolean(regTestCases[i][6])) {
                 driver.findElement(regTermAcknowledgement).click();
             }

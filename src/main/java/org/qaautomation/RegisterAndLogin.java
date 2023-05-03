@@ -23,7 +23,10 @@ public class RegisterAndLogin extends BasePage {
     private static final By loginUsernameField = By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/form/div/div/table/tbody/tr[2]/td[1]/div[1]/div[1]/div[2]/input");
     private static final By loginPasswordField = By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/form/div/div/table/tbody/tr[2]/td[1]/div[1]/div[2]/div[2]/input");
 
-    //Registration test case array
+    /*Registration test case array
+    first name - last name, phone, email, password, repeat password, terms, gdpr, marketing
+    terms, gdpr and marketing strings are converted to booleans in the method that uses array data */
+
     private static final String[][] regTestCases = {
             //valid credentials
             {"Vardenis", "Pavardenis", "+37060000000", "email@mail.com", "Test123!", "Test123!", "true", "true", "false"},
@@ -39,6 +42,7 @@ public class RegisterAndLogin extends BasePage {
     }
 
 
+    //a method used to fill out all fields required for registration based on provided parameters
     public static void RegistrationAttempt(String firstName,
                                            String lastName,
                                            String phone,
@@ -49,7 +53,6 @@ public class RegisterAndLogin extends BasePage {
                                            boolean gdpr,
                                            boolean marketing) {
 
-        //fill out all fields required for registration based on parameters provided
         driver.findElement(registerButton).click();
         driver.findElement(regFirstNameField).sendKeys(firstName);
         driver.findElement(regLastNameField).sendKeys(lastName);
@@ -73,14 +76,21 @@ public class RegisterAndLogin extends BasePage {
 
         //for each entry in registration test case array, the registration method is called with appropriate parameters
         for (int i = 0; i < regTestCases.length; i++) {
-            RegistrationAttempt(regTestCases[i][0],
-                    regTestCases[i][1],
-                    regTestCases[i][2],
-                    regTestCases[i][3],
-                    regTestCases[i][4],
-                    regTestCases[i][5],
+            RegistrationAttempt(
+                    regTestCases[i][0], //first name
+                    regTestCases[i][1], //last name
+                    regTestCases[i][2], //phone
+                    regTestCases[i][3], //email
+                    regTestCases[i][4], //password
+                    regTestCases[i][5], //repeat password
+
+                    //if terms parameter == true, terms and conditios should be acknowledged
                     Boolean.parseBoolean(regTestCases[i][6]),
+
+                    //if gdpr == true, gdpr checkbox should be ticked
                     Boolean.parseBoolean(regTestCases[i][7]),
+
+                    //if marketing == true, consent to marketing emails
                     Boolean.parseBoolean(regTestCases[i][8]));
         }
 
