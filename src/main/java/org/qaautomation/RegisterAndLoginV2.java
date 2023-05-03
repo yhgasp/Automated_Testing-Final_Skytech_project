@@ -39,36 +39,6 @@ public class RegisterAndLoginV2 extends BasePage {
     }
 
 
-    public static void RegistrationAttempt(String firstName,
-                                           String lastName,
-                                           String phone,
-                                           String email,
-                                           String password,
-                                           String repeatPassword,
-                                           boolean terms,
-                                           boolean gdpr,
-                                           boolean marketing) {
-
-        //fill out all fields required for registration based on parameters provided
-        driver.findElement(registerButton).click();
-        driver.findElement(regFirstNameField).sendKeys(firstName);
-
-        driver.findElement(regPhoneField).sendKeys(phone);
-
-        driver.findElement(regPasswordField).sendKeys(password);
-        driver.findElement(regRepeatPasswordField).sendKeys(repeatPassword);
-        if (gdpr) {
-            driver.findElement(regTermAcknowledgement).click();
-        }
-        if (terms) {
-            driver.findElement(regGdprConsent).click();
-        }
-        if (marketing) {
-            driver.findElement(regMarketingConsent).click();
-        }
-        driver.findElement(submitRegistration).click();
-    }
-
     public static void runRegistrationTestCases() {
 
         //for each entry in registration test case array, the registration method is called with appropriate parameters
