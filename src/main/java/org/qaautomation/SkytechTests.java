@@ -19,7 +19,7 @@ public class SkytechTests extends BasePage {
     @Test
     public void whatever(){
         enterHomePage(BasePage.driver);
-        RegisterAndLogin.runRegistrationTestCases();
+        RegisterAndLoginV2.runRegistrationTestCases();
     }
 
     @AfterClass

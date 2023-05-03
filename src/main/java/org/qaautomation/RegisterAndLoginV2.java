@@ -3,7 +3,7 @@ package org.qaautomation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class RegisterAndLogin extends BasePage {
+public class RegisterAndLoginV2 extends BasePage {
 
     //Element locators - Registering
     private static final By registerButton = By.className("link-register");
@@ -34,7 +34,7 @@ public class RegisterAndLogin extends BasePage {
     };
 
     //class constructor that inherits driver properties from Base page
-    public RegisterAndLogin(WebDriver driver) {
+    public RegisterAndLoginV2(WebDriver driver) {
         super(driver);
     }
 
@@ -52,9 +52,9 @@ public class RegisterAndLogin extends BasePage {
         //fill out all fields required for registration based on parameters provided
         driver.findElement(registerButton).click();
         driver.findElement(regFirstNameField).sendKeys(firstName);
-        driver.findElement(regLastNameField).sendKeys(lastName);
+
         driver.findElement(regPhoneField).sendKeys(phone);
-        driver.findElement(regEmailField).sendKeys(email);
+
         driver.findElement(regPasswordField).sendKeys(password);
         driver.findElement(regRepeatPasswordField).sendKeys(repeatPassword);
         if (gdpr) {
@@ -73,15 +73,38 @@ public class RegisterAndLogin extends BasePage {
 
         //for each entry in registration test case array, the registration method is called with appropriate parameters
         for (int i = 0; i < regTestCases.length; i++) {
-            RegistrationAttempt(regTestCases[i][0],
-                    regTestCases[i][1],
-                    regTestCases[i][2],
-                    regTestCases[i][3],
-                    regTestCases[i][4],
-                    regTestCases[i][5],
-                    Boolean.parseBoolean(regTestCases[i][6]),
-                    Boolean.parseBoolean(regTestCases[i][7]),
-                    Boolean.parseBoolean(regTestCases[i][8]));
+
+
+            driver.findElement(registerButton).click(); //start or reset registration attempt
+
+
+            //enter basic registration info
+            driver.findElement(regFirstNameField).sendKeys(regTestCases[i][0]); //send first name
+            driver.findElement(regLastNameField).sendKeys(regTestCases[i][1]); //last name
+            driver.findElement(regPhoneField).sendKeys(regTestCases[i][2]); //phone
+            driver.findElement(regEmailField).sendKeys(regTestCases[i][3]); //email
+            driver.findElement(regPasswordField).sendKeys(regTestCases[i][4]); //password
+            driver.findElement(regRepeatPasswordField).sendKeys(regTestCases[i][5]); //repeat password
+
+            //if terms parameter == true, acknowlege terms and conditions
+            if (Boolean.parseBoolean(regTestCases[i][6])) {
+                driver.findElement(regTermAcknowledgement).click();
+            }
+
+
+            //if gdpr == true, consent to personal data use
+            if (Boolean.parseBoolean(regTestCases[i][7])) {
+                driver.findElement(regGdprConsent).click();
+            }
+
+
+            //if marketing == true, consent to marketing emails
+            if (Boolean.parseBoolean(regTestCases[i][8])) {
+                driver.findElement(regMarketingConsent).click();
+            }
+
+            //submit all info
+            driver.findElement(submitRegistration).click();
         }
 
     }
