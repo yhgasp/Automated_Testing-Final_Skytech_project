@@ -1,4 +1,4 @@
-package org.qaautomation;
+package org.qaautomation.utilities;
 
 import org.openqa.selenium.WebDriver;
 
@@ -16,3 +16,4 @@ public class BasePage {
         driver.get("https:www.skytech.lt");
     }
 }
+
