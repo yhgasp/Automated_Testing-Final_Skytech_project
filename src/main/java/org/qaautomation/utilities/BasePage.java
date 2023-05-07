@@ -1,6 +1,9 @@
 package org.qaautomation.utilities;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class BasePage {
     protected static WebDriver driver;
