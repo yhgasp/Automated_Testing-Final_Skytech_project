@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.qaautomation.tests.LoginTest;
 import org.qaautomation.tests.RegisterTest;
+import org.qaautomation.tests.SearchTest;
 import org.qaautomation.utilities.BasePage;
 
 import java.sql.SQLException;
@@ -23,14 +24,19 @@ public class SkytechTests extends BasePage {
         //DatabaseMethods.createTable();
     }
 
-    @Test
-    public void registrationTesting(){
-        RegisterTest.runRegistrationTestCases();
-    }
+//    @Test
+//    public void registrationTesting(){
+//        RegisterTest.runRegistrationTestCases();
+//    }
+//
+//    @Test
+//    public void loginTesting(){
+//        LoginTest.runLoginTestCases();
+//    }
 
     @Test
-    public void loginTesting(){
-        LoginTest.runLoginTestCases();
+    public void basicSearchTesting(){
+        SearchTest.runBasicSearchTestCases();
     }
 
     @AfterClass
