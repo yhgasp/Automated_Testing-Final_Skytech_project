@@ -4,8 +4,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.qaautomation.tests.LoginTest;
+import org.qaautomation.tests.RegisterTest;
 import org.qaautomation.utilities.BasePage;
-import org.qaautomation.utilities.DatabaseMethods;
 
 import java.sql.SQLException;
 
@@ -18,14 +19,18 @@ public class SkytechTests extends BasePage {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
         BasePage.driver = new ChromeDriver(options);
-        DatabaseMethods.createTable();
+        enterHomePage(driver);
+        //DatabaseMethods.createTable();
     }
 
     @Test
-    public void whatever() throws SQLException {
-        DatabaseMethods.writeDb();
-        //enterHomePage(BasePage.driver);
-        //RegisterAndLoginV2.runRegistrationTestCases();
+    public void registrationTesting(){
+        RegisterTest.runRegistrationTestCases();
+    }
+
+    @Test
+    public void loginTesting(){
+        LoginTest.runLoginTestCases();
     }
 
     @AfterClass
