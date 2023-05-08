@@ -1,9 +1,9 @@
 package org.qaautomation.login;
 
-public class LoginCases {
+class LoginCases {
 
     //the message(s) that indicate(s) login success (expected)
-    public static final String successMsgExpected = "Mano paskyra";
+    protected static final String successMsgExpected = "Mano paskyra";
 
 
     /*Login test case array
@@ -14,17 +14,23 @@ public class LoginCases {
     login[][][1] contains expected error information, null indicates no error is expected
     */
 
-     public static final String[][][] cases = {
-            {
-                    //form submitted blank
-                    {"", ""},
-                    {"Nenurodytas el. pašto adresas","Nenurodytas slaptažodis"}
-            },
-             {
-                 //invalid credentials entered
-                     {"sazdgf","asgf"},
-                     {"Neteisingas el. pašto adresas arba / ir slaptažodis."}
-             }
+     protected static final String[][][] cases = {
+        {
+            //valid login
+                {"",""},
+                {null}
+        },
+         {
+             //form submitted blank
+                 {"", ""},
+                 {"Nenurodytas el. pašto adresas", "Nenurodytas slaptažodis"}
+
+         },
+        {
+            //invalid credentials entered
+                {"sazdgf","asgf"},
+                {"Neteisingas el. pašto adresas arba / ir slaptažodis."}
+        }
     };
 
 }

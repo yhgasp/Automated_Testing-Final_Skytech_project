@@ -18,13 +18,49 @@ public class RegisterTest extends BasePage {
 
 
     //class constructor that inherits driver properties from Base page
-    public RegisterTest(WebDriver driver) {
+    private RegisterTest(WebDriver driver) {
         super(driver);
     }
 
+    public static void runRegistrationTestCases() {
+
+        //for each entry in registration test case array, the registration method is called with appropriate parameters
+        for (int i = 0; i < RegistrationCases.cases.length; i++) {
+
+            //calling the method with all appropriate parameters
+            RegistrationAttempt(
+                    RegistrationCases.cases[i][0][0], //first name
+                    RegistrationCases.cases[i][0][1], //last name
+                    RegistrationCases.cases[i][0][2], //phone
+                    RegistrationCases.cases[i][0][3], //email
+                    RegistrationCases.cases[i][0][4], //password
+                    RegistrationCases.cases[i][0][5], //repeat password
+                    RegistrationCases.cases[i][0][6], //terms
+                    RegistrationCases.cases[i][0][7], //gdpr
+                    RegistrationCases.cases[i][0][8]); //marketing
+
+
+            //checking expected results vs actual
+            if (RegistrationCases.cases[i][1][0] == null) {
+
+                //if expected errors is null, wait for success message to be visible
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                WebElement successMessageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterPage.regSuccessMessage));
+                String successMessageActual = successMessageElement.getText();
+
+                //assert actual success message received matches expectation defined in TestCases
+                assertEquals(successMessageActual, RegistrationCases.successMsgExpected);
+
+            } else {
+                checkRegErrors(i);
+            }
+
+
+        }
+    }
 
     //a method used to fill out all fields required for registration based on provided parameters
-    public static void RegistrationAttempt(String firstName,
+    private static void RegistrationAttempt(String firstName,
                                            String lastName,
                                            String phone,
                                            String email,
@@ -70,44 +106,7 @@ public class RegisterTest extends BasePage {
         driver.findElement(RegisterPage.regInfoSubmit).click();
     }
 
-    public static void runRegistrationTestCases() {
-
-        //for each entry in registration test case array, the registration method is called with appropriate parameters
-        for (int i = 0; i < RegistrationCases.cases.length; i++) {
-
-            //calling the method with all appropriate parameters
-            RegistrationAttempt(
-                    RegistrationCases.cases[i][0][0], //first name
-                    RegistrationCases.cases[i][0][1], //last name
-                    RegistrationCases.cases[i][0][2], //phone
-                    RegistrationCases.cases[i][0][3], //email
-                    RegistrationCases.cases[i][0][4], //password
-                    RegistrationCases.cases[i][0][5], //repeat password
-                    RegistrationCases.cases[i][0][6], //terms
-                    RegistrationCases.cases[i][0][7], //gdpr
-                    RegistrationCases.cases[i][0][8]); //marketing
-
-
-            //checking expected results vs actual
-            if (RegistrationCases.cases[i][1][0] == null) {
-
-                //if expected errors is null, wait for success message to be visible
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-                WebElement successMessageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterPage.regSuccessMessage));
-                String successMessageActual = successMessageElement.getText();
-
-                //assert actual success message received matches expectation defined in TestCases
-                assertEquals(successMessageActual, RegistrationCases.successMsgExpected);
-
-            } else {
-                checkRegErrors(i);
-            }
-
-
-        }
-    }
-
-    public static void checkRegErrors(int testCaseIndex) {
+    private static void checkRegErrors(int testCaseIndex) {
 
 
         //collects all error elements into a list (due to website design it also grabs empty error fields)

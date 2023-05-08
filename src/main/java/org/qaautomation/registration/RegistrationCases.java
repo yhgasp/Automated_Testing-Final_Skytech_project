@@ -1,9 +1,9 @@
 package org.qaautomation.registration;
 
-public class RegistrationCases {
+class RegistrationCases {
 
     //the message(s) that indicate(s) registration success (expected)
-    public static final String successMsgExpected = "Jūsų paskyra sėkmingai sukurta!";
+    protected static final String successMsgExpected = "Jūsų paskyra sėkmingai sukurta!";
 
     /*Registration test case array
 
@@ -13,7 +13,7 @@ public class RegistrationCases {
 
     registration[][][1] contains expected error information, null indicates no error is expected
  */
-     public static final String[][][] cases = {
+    protected static final String[][][] cases = {
 
 //            {
 //                    //valid credentials

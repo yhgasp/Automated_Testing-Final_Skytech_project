@@ -1,13 +1,13 @@
 package org.qaautomation.search;
 
-public class SearchCases {
+class SearchCases {
 
     /*Search test case array
     search[][0] contains input information
     search[][1] contains expected error/message information, null means no error is expected
      */
 
-    public static final String[] casesInput = {
+    protected static final String[] casesInput = {
             //all latin characters, uppercase and lowercase
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
             //all lithuanian characters, uppercase and lowercase,
@@ -25,7 +25,7 @@ public class SearchCases {
 
     };
 
-    public static final String[][] casesResults = {
+    protected static final String[][] casesResults = {
 
             //regular string input
             {"Kompiuteris",null},
