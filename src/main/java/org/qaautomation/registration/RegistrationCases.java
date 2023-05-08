@@ -1,9 +1,9 @@
-package org.qaautomation.base;
+package org.qaautomation.registration;
 
 public class RegistrationCases {
 
     //the message(s) that indicate(s) registration success (expected)
-    public static final String regSuccessExpected = "Jūsų paskyra sėkmingai sukurta!";
+    public static final String successMsgExpected = "Jūsų paskyra sėkmingai sukurta!";
 
     /*Registration test case array
 
@@ -13,7 +13,7 @@ public class RegistrationCases {
 
     registration[][][1] contains expected error information, null indicates no error is expected
  */
-     public static final String[][][] registration = {
+     public static final String[][][] cases = {
 
 //            {
 //                    //valid credentials
@@ -28,13 +28,19 @@ public class RegistrationCases {
             },
 
             {
-                //password does not meet security requirements
+                    //password does not meet security requirements
                     {"Vardenis", "Pavardenis", "+37060000000", "email@mail.com", "Test", "Test", "true", "true", "false"},
                     {"Slaptažodį turi sudaryti ne mažiau 8 ženklų."}
             },
+            {
+                    //valid credentials BUT terms and gdpr checkboxes not ticked
+                    {"Vardenis", "Pavardenis", "+37060000000", "email1234536456@mail.com", "Test123!", "Test123!", "false", "false", "false"},
+                    {"Susipažinkite ir sutikite su svetainės www.skytech.lt taisyklėmis",
+                    "Nesutikus su Privatumo apsaugos taisyklėmis, registracija negalima"}
+            },
 
             {
-                //form submitted without any info
+                    //form submitted without any info
                     {"", "", "", "", "", "", "", "", ""},
                     {"Vardas mažiausiai iš 2 raidžių.",
                     "Pavardė mažiausiai iš 2 raidžių.",

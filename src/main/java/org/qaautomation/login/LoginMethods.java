@@ -1,14 +1,9 @@
-package org.qaautomation.tests;
+package org.qaautomation.login;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.bidi.log.Log;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.qaautomation.base.LoginCases;
-import org.qaautomation.base.RegistrationCases;
-import org.qaautomation.pages.LoginPage;
-import org.qaautomation.pages.RegisterPage;
 import org.qaautomation.utilities.BasePage;
 
 import java.time.Duration;
@@ -19,9 +14,9 @@ import java.util.function.Predicate;
 
 import static org.junit.Assert.assertEquals;
 
-public class LoginTest extends BasePage {
+public class LoginMethods extends BasePage {
 
-    public LoginTest(WebDriver driver) {
+    public LoginMethods(WebDriver driver) {
         super(driver);
     }
 
@@ -46,16 +41,16 @@ public class LoginTest extends BasePage {
     public static void runLoginTestCases() {
 
         //for each entry in login test case array, we call loginAttempt()
-        for (int i = 0; i < LoginCases.login.length; i++) {
+        for (int i = 0; i < LoginCases.cases.length; i++) {
 
             //calling the method with all appropriate parameters
             LoginAttempt(
-                    LoginCases.login[i][0][0],  //first name
-                    LoginCases.login[i][0][1]); //last name
+                    LoginCases.cases[i][0][0],  //first name
+                    LoginCases.cases[i][0][1]); //last name
 
 
 //            //checking expected results vs actual
-            if (LoginCases.login[i][1][0] == null) {
+            if (LoginCases.cases[i][1][0] == null) {
 
                 //if expected errors is null, wait for success message to be visible
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -64,7 +59,7 @@ public class LoginTest extends BasePage {
                 String successMessageActual = successMessageElement.getText();
 
                 //assert actual success message received matches expectation defined in TestCases
-                assertEquals(successMessageActual, RegistrationCases.regSuccessExpected);
+                assertEquals(successMessageActual, LoginCases.successMsgExpected);
 
             } else {
                 checkLoginErrors(i);
@@ -93,7 +88,7 @@ public class LoginTest extends BasePage {
         //convert expected errors from TestCases array to string list
         List<String> expectedErrors = new ArrayList<>(
                 Arrays.stream( //turn the provided array to stream
-                                LoginCases.login[testCaseIndex][1]) //array of expected errors
+                                LoginCases.cases[testCaseIndex][1]) //array of expected errors
                         .toList()); //record stream to list
 
 

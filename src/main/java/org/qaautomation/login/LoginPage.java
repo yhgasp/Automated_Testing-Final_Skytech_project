@@ -1,4 +1,4 @@
-package org.qaautomation.pages;
+package org.qaautomation.login;
 import org.openqa.selenium.By;
 
 public class LoginPage {

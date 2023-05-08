@@ -1,4 +1,4 @@
-package org.qaautomation.pages;
+package org.qaautomation.registration;
 
 import org.openqa.selenium.By;
 

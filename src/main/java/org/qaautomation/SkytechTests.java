@@ -1,15 +1,13 @@
-package org.qaautomation.base;
+package org.qaautomation;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.qaautomation.tests.LoginTest;
-import org.qaautomation.tests.RegisterTest;
-import org.qaautomation.tests.SearchTest;
+import org.qaautomation.login.LoginMethods;
+import org.qaautomation.registration.RegisterTest;
+import org.qaautomation.search.SearchTest;
 import org.qaautomation.utilities.BasePage;
-
-import java.sql.SQLException;
 
 public class SkytechTests extends BasePage {
 
@@ -24,19 +22,23 @@ public class SkytechTests extends BasePage {
         //DatabaseMethods.createTable();
     }
 
-//    @Test
-//    public void registrationTesting(){
-//        RegisterTest.runRegistrationTestCases();
-//    }
-//
-//    @Test
-//    public void loginTesting(){
-//        LoginTest.runLoginTestCases();
-//    }
+    @Test
+    public void searchInputTesting(){
+        SearchTest.runSearchInputCases();
+    }
 
     @Test
-    public void basicSearchTesting(){
-        SearchTest.runBasicSearchTestCases();
+    public void searchResultTesting(){
+        SearchTest.runSearchResultTestCases();
+    }
+    @Test
+    public void registrationTesting(){
+        RegisterTest.runRegistrationTestCases();
+    }
+
+    @Test
+    public void loginTesting(){
+        LoginMethods.runLoginTestCases();
     }
 
     @AfterClass

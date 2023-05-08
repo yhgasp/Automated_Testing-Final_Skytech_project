@@ -1,9 +1,9 @@
-package org.qaautomation.base;
+package org.qaautomation.login;
 
 public class LoginCases {
 
     //the message(s) that indicate(s) login success (expected)
-    public static final String logSuccessExpected = "Mano paskyra";
+    public static final String successMsgExpected = "Mano paskyra";
 
 
     /*Login test case array
@@ -14,7 +14,7 @@ public class LoginCases {
     login[][][1] contains expected error information, null indicates no error is expected
     */
 
-     public static final String[][][] login = {
+     public static final String[][][] cases = {
             {
                     //form submitted blank
                     {"", ""},

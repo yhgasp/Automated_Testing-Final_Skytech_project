@@ -1,18 +1,16 @@
-package org.qaautomation.tests;
+package org.qaautomation.registration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.qaautomation.utilities.BasePage;
-import org.qaautomation.base.RegistrationCases;
-import org.qaautomation.pages.RegisterPage;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-
 import static org.junit.Assert.assertEquals;
 
 
@@ -75,23 +73,23 @@ public class RegisterTest extends BasePage {
     public static void runRegistrationTestCases() {
 
         //for each entry in registration test case array, the registration method is called with appropriate parameters
-        for (int i = 0; i < RegistrationCases.registration.length; i++) {
+        for (int i = 0; i < RegistrationCases.cases.length; i++) {
 
             //calling the method with all appropriate parameters
             RegistrationAttempt(
-                    RegistrationCases.registration[i][0][0], //first name
-                    RegistrationCases.registration[i][0][1], //last name
-                    RegistrationCases.registration[i][0][2], //phone
-                    RegistrationCases.registration[i][0][3], //email
-                    RegistrationCases.registration[i][0][4], //password
-                    RegistrationCases.registration[i][0][5], //repeat password
-                    RegistrationCases.registration[i][0][6], //terms
-                    RegistrationCases.registration[i][0][7], //gdpr
-                    RegistrationCases.registration[i][0][8]); //marketing
+                    RegistrationCases.cases[i][0][0], //first name
+                    RegistrationCases.cases[i][0][1], //last name
+                    RegistrationCases.cases[i][0][2], //phone
+                    RegistrationCases.cases[i][0][3], //email
+                    RegistrationCases.cases[i][0][4], //password
+                    RegistrationCases.cases[i][0][5], //repeat password
+                    RegistrationCases.cases[i][0][6], //terms
+                    RegistrationCases.cases[i][0][7], //gdpr
+                    RegistrationCases.cases[i][0][8]); //marketing
 
 
             //checking expected results vs actual
-            if (RegistrationCases.registration[i][1][0] == null) {
+            if (RegistrationCases.cases[i][1][0] == null) {
 
                 //if expected errors is null, wait for success message to be visible
                 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -99,7 +97,7 @@ public class RegisterTest extends BasePage {
                 String successMessageActual = successMessageElement.getText();
 
                 //assert actual success message received matches expectation defined in TestCases
-                assertEquals(successMessageActual, RegistrationCases.regSuccessExpected);
+                assertEquals(successMessageActual, RegistrationCases.successMsgExpected);
 
             } else {
                 checkRegErrors(i);
@@ -120,13 +118,13 @@ public class RegisterTest extends BasePage {
                 errorList //WebElement list
                         .stream() //convert list to a stream
                         .map(WebElement::getText) //get text from each element of the stream
-                        .filter(Predicate.not(String::isEmpty)) //filter out empty elements of the stream
+                        .filter(Predicate.not(String::isEmpty)) //filter out empty strings from the stream
                         .toList()); //record remaining elements to a list
 
         //convert expected errors from TestCases array to string list
         List<String> expectedErrors = new ArrayList<>(
                 Arrays.stream( //turn the provided array to stream
-                                RegistrationCases.registration[testCaseIndex][1]) //array of expected errors
+                         RegistrationCases.cases[testCaseIndex][1]) //array of expected errors
                         .toList()); //record stream to list
 
 

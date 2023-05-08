@@ -1,16 +1,16 @@
-package org.qaautomation.tests;
+package org.qaautomation.search;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.qaautomation.base.SearchCases;
-import org.qaautomation.pages.RegisterPage;
-import org.qaautomation.pages.SearchPage;
+import org.qaautomation.search.SearchCases;
+import org.qaautomation.search.SearchPage;
 import org.qaautomation.utilities.BasePage;
 import java.time.Duration;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 public class SearchTest extends BasePage {
 
@@ -18,17 +18,29 @@ public class SearchTest extends BasePage {
         super(driver);
     }
 
-    public static void runBasicSearchTestCases(){
+    public static void runSearchInputCases(){
+        for (String searchTerm : SearchCases.casesInput){
+            searchFor(searchTerm);
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement searchBar = wait.until(ExpectedConditions.visibilityOfElementLocated(SearchPage.searchBar));
+
+            String displayedTerm = searchBar.getAttribute("value");
+            System.out.println(displayedTerm);
+            Assert.assertEquals(searchTerm,displayedTerm);
+        }
+    }
+    public static void runSearchResultTestCases(){
 
         //for each entry in the Search Case array, look up the search term and run the nested loop
-        for (int i = 0; i < SearchCases.basicSearch.length; i++) {
+        for (int i = 0; i < SearchCases.casesResults.length; i++) {
 
             //search for the term
-            searchFor(SearchCases.basicSearch[i][0]);
+            searchFor(SearchCases.casesResults[i][0]);
 
 
             //if no errors expected for the case, check result names to make sure they contain search key
-            if(SearchCases.basicSearch[i][1] == null){
+            if(SearchCases.casesResults[i][1] == null){
 
 
                 //wait for all product names to load
@@ -45,12 +57,12 @@ public class SearchTest extends BasePage {
 
                     String actualName = productName.getText().toLowerCase();
                     //System.out.println(actualName);
-                    String expectedSubstring = SearchCases.basicSearch[i][0].toLowerCase();
+                    String expectedSubstring = SearchCases.casesResults[i][0].toLowerCase();
                     Assert.assertTrue(actualName.contains(expectedSubstring));
                 }
             } else {
               //if errors are expected, check if the actual error matches
-                Assert.assertEquals(SearchCases.basicSearch[i][1],readResultError());
+                Assert.assertEquals(SearchCases.casesResults[i][1],readResultError());
                 System.out.println(readResultError());
             }
 
