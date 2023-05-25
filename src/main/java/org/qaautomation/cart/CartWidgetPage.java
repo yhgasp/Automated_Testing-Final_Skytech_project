@@ -1,4 +1,4 @@
-package org.qaautomation.cartWidget;
+package org.qaautomation.cart;
 
 import org.openqa.selenium.By;
 
@@ -24,8 +24,6 @@ public class CartWidgetPage {
     static final By widgetIncreaseQty = By.className("arrow-up");
     static final By widgetReduceQty = By.className("arrow-down");
     static final By widgetDelete = By.className("remove-icon");
-    static final By cartWidgetCheckout = By.xpath(
-            "//*[@id=\"krepselis-popup-bottom\"]/div/table/tbody/tr[2]/td/div/div/div[2]/input");
 
 
     //cart widget elements - info

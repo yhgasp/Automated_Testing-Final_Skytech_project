@@ -1,7 +1,5 @@
 package org.qaautomation.utilities;
 
-import org.qaautomation.utilities.TimestampGenerator;
-
 import java.sql.*;
 
 public class DatabaseMethods {

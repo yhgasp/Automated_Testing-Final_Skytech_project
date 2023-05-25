@@ -2,17 +2,16 @@ package org.qaautomation.registration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.qaautomation.utilities.BasePage;
+import org.qaautomation.utilities.ExceptionHandling.AssertEquals;
+import org.qaautomation.utilities.QuickActions;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import static org.junit.Assert.assertEquals;
 
+import static org.qaautomation.utilities.ExceptionHandling.AssertEquals.assertEquals;
 
 public class RegisterTest extends BasePage {
 
@@ -25,31 +24,31 @@ public class RegisterTest extends BasePage {
     public static void runRegistrationTestCases() {
 
         //for each entry in registration test case array, the registration method is called with appropriate parameters
-        for (int i = 0; i < RegistrationCases.cases.length; i++) {
+        for (int i = 0; i < RegisterCases.cases.length; i++) {
 
-            //calling the method with all appropriate parameters
+            //calling the registration method with all appropriate parameters
             RegistrationAttempt(
-                    RegistrationCases.cases[i][0][0], //first name
-                    RegistrationCases.cases[i][0][1], //last name
-                    RegistrationCases.cases[i][0][2], //phone
-                    RegistrationCases.cases[i][0][3], //email
-                    RegistrationCases.cases[i][0][4], //password
-                    RegistrationCases.cases[i][0][5], //repeat password
-                    RegistrationCases.cases[i][0][6], //terms
-                    RegistrationCases.cases[i][0][7], //gdpr
-                    RegistrationCases.cases[i][0][8]); //marketing
+                    RegisterCases.cases[i][1][0], //first name
+                    RegisterCases.cases[i][1][1], //last name
+                    RegisterCases.cases[i][1][2], //phone
+                    RegisterCases.cases[i][1][3], //email
+                    RegisterCases.cases[i][1][4], //password
+                    RegisterCases.cases[i][1][5], //repeat password
+                    RegisterCases.cases[i][1][6], //terms
+                    RegisterCases.cases[i][1][7], //gdpr
+                    RegisterCases.cases[i][1][8]); //marketing
 
 
-            //checking expected results vs actual
-            if (RegistrationCases.cases[i][1][0] == null) {
-
-                //if expected errors is null, wait for success message to be visible
-                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-                WebElement successMessageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterPage.regSuccessMessage));
-                String successMessageActual = successMessageElement.getText();
+            //if expected errors is null, wait for success message to be visible
+            if (RegisterCases.cases[i][1][0] == null) {
+                String successMessageActual = QuickActions.waitForVis(RegisterPage.regSuccessMessage).getText();
 
                 //assert actual success message received matches expectation defined in TestCases
-                assertEquals(successMessageActual, RegistrationCases.successMsgExpected);
+                AssertEquals.assertEquals(
+                        RegisterCases.cases[i][0][0],
+                        "success message",
+                        successMessageActual,
+                        RegisterCases.successMsgExpected);
 
             } else {
                 checkRegErrors(i);
@@ -70,40 +69,34 @@ public class RegisterTest extends BasePage {
                                            String gdpr,
                                            String marketing) {
 
-        //wait for register button to be visible, then click
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement regButton = wait.until(ExpectedConditions.visibilityOfElementLocated(RegisterPage.regScreenButton));
-        regButton.click();
-
-
-        //wait until all forms elements can be located
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.presenceOfAllElementsLocatedBy(RegisterPage.regFormElements));
+        //click the registration button
+        QuickActions.findAndClick(RegisterPage.regScreenButton);
 
         //enter form data
-        driver.findElement(RegisterPage.regFirstNameField).sendKeys(firstName);
-        driver.findElement(RegisterPage.regLastNameField).sendKeys(lastName);
-        driver.findElement(RegisterPage.regPhoneField).sendKeys(phone);
-        driver.findElement(RegisterPage.regEmailField).sendKeys(email);
-        driver.findElement(RegisterPage.regPasswordField).sendKeys(password);
-        driver.findElement(RegisterPage.regRepeatPasswordField).sendKeys(repeatPassword);
+        QuickActions.sendKeys(RegisterPage.regFirstNameField, firstName);
+        QuickActions.sendKeys(RegisterPage.regLastNameField, lastName);
+        QuickActions.sendKeys(RegisterPage.regPhoneField, phone);
+        QuickActions.sendKeys(RegisterPage.regEmailField, email);
+        QuickActions.sendKeys(RegisterPage.regPasswordField, password);
+        QuickActions.sendKeys(RegisterPage.regRepeatPasswordField,repeatPassword);
 
         //if terms parameter == true, terms and conditions should be acknowledged
         if (Boolean.parseBoolean(terms)) {
-            driver.findElement(RegisterPage.regTermAcknowledgement).click();
+            QuickActions.findAndClick(RegisterPage.regTermAcknowledgement);
         }
 
         //if gdpr == true, gdpr checkbox should be ticked
         if (Boolean.parseBoolean(gdpr)) {
-            driver.findElement(RegisterPage.regGdprConsent).click();
+            QuickActions.findAndClick(RegisterPage.regGdprConsent);
         }
 
         //if marketing == true, consent to marketing emails
         if (Boolean.parseBoolean(marketing)) {
-            driver.findElement(RegisterPage.regMarketingConsent).click();
+            QuickActions.findAndClick(RegisterPage.regMarketingConsent);
         }
 
         //submit form
-        driver.findElement(RegisterPage.regInfoSubmit).click();
+        QuickActions.findAndClick(RegisterPage.regInfoSubmit);
     }
 
     private static void checkRegErrors(int testCaseIndex) {
@@ -123,10 +116,14 @@ public class RegisterTest extends BasePage {
         //convert expected errors from TestCases array to string list
         List<String> expectedErrors = new ArrayList<>(
                 Arrays.stream( //turn the provided array to stream
-                         RegistrationCases.cases[testCaseIndex][1]) //array of expected errors
+                         RegisterCases.cases[testCaseIndex][2]) //array of expected errors
                         .toList()); //record stream to list
 
 
-        assertEquals(expectedErrors,actualErrors);
+        assertEquals(
+                RegisterCases.cases[testCaseIndex][0][0],
+                "error list",
+                expectedErrors,
+                actualErrors);
     }
 }

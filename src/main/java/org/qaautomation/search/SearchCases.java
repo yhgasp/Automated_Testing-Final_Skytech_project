@@ -7,6 +7,7 @@ class SearchCases {
     search[][1] contains expected error/message information, null means no error is expected
      */
 
+    protected static final String genericValidKeyword = "kompiuteris";
     protected static final String[] casesInput = {
             //all latin characters, uppercase and lowercase
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -28,7 +29,7 @@ class SearchCases {
     protected static final String[][] casesResults = {
 
             //regular string input
-            {"Kompiuteris",null},
+            {genericValidKeyword,null},
 
             //regular string input with irregular case
             {"kOmPIuTeRiS",null},

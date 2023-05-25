@@ -13,6 +13,19 @@ class LoginPage {
     protected static final By errorGeneral = By.className("error-message");
     protected static final By errorCredentials = By.className("login-error");
 
-    //Login success element locators
-    protected static final By accountManageButton = By.xpath("/html/body/div[6]/div[1]/div[4]/ul/li[7]/a");
+    //Logged in - element locators
+
+    protected static final String successMsgExpected = "Mano paskyra";
+    protected static final By accountManageButton = By.xpath(
+            "//*[@id=\"body\"]/div[6]/div[1]/div[2]/ul/li[7]/a");
+    protected static final By accountManageLogout = By.xpath(
+            "//*[@id=\"body\"]/div[6]/div[1]/div[2]/ul/li[7]/ul/li[9]/a");
+
+    //Logged in - password change locators
+    protected static final By passwordFieldCurrent = By.xpath(
+            "(//input[@name='data[password_current]'])[1]");
+    protected static final By passwordFieldNew = By.xpath(
+            "(//input[@name='data[password_new]'])[1]");
+    protected static final By passwordFieldNewRepeat = By.xpath(
+            "(//input[@name='data[password_confirmation]'])[1]");
 }

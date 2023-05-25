@@ -6,7 +6,6 @@ class RegisterPage {
 
     //Input element locators - Registering
     protected static final By regScreenButton = By.className("link-register");
-    protected static final By regFormElements = By.className("form-line");
     protected static final By regFirstNameField = By.name("vardas");
     protected static final By regLastNameField = By.name("pavarde");
     protected static final By regPhoneField = By.name("phone");
@@ -16,7 +15,7 @@ class RegisterPage {
     protected static final By regTermAcknowledgement = By.name("rules");
     protected static final By regGdprConsent = By.name("consent");
     protected static final By regMarketingConsent = By.name("newsletter");
-    protected static final By regInfoSubmit = By.xpath("/html/body/div[6]/div[1]/div[6]/div[2]/form/div/table/tbody/tr/td[2]/div/div/input");
+    protected static final By regInfoSubmit = By.xpath("/html/body/div[6]/div[1]/div[4]/div[2]/form/div/table/tbody/tr/td[2]/div/div/input");
 
 
     //Registration success locators

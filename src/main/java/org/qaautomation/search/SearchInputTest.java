@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.ComparisonFailure;
 import org.openqa.selenium.WebDriver;
 import org.qaautomation.utilities.BasePage;
+import org.qaautomation.utilities.NavigationPage;
 import org.qaautomation.utilities.QuickActions;
 
 public class SearchInputTest extends BasePage {
@@ -19,7 +20,7 @@ public class SearchInputTest extends BasePage {
             QuickActions.searchFor(searchTerm);
 
             //check the term that the page shows
-            String displayedTerm = QuickActions.waitForVis(SearchPage.searchBar).getAttribute("value");
+            String displayedTerm = QuickActions.waitForVis(NavigationPage.searchBar).getAttribute("value");
 
             try{
                 Assert.assertEquals(searchTerm,displayedTerm);

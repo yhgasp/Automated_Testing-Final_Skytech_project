@@ -1,50 +1,33 @@
-package org.qaautomation.cartWidget;
+package org.qaautomation.cart;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.qaautomation.utilities.BasePage;
+import org.qaautomation.utilities.ExceptionHandling.AssertEquals;
 import org.qaautomation.utilities.NavigationPage;
 import org.qaautomation.utilities.QuickActions;
 
 import java.util.List;
 
-import static org.qaautomation.utilities.ExceptionHandling.AssertContains.AssertContains;
-import static org.qaautomation.utilities.ExceptionHandling.AssertEquals.AssertEquals;
+import static org.qaautomation.utilities.ExceptionHandling.AssertContains.assertContains;
 
 public class CartWidgetTest extends BasePage {
     public CartWidgetTest(WebDriver driver) {
         super(driver);
     }
 
-    public static void main(String[] args) {
-        //
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications");
-        driver = new ChromeDriver(options);
-        enterHomePage(driver);
-        driver.manage().window().maximize();
-        //
-
-        runCartWidgetTests();
-    }
     public static void runCartWidgetTests() {
         //go to the first subcategory in the main menu
         QuickActions.hoverClick(NavigationPage.mainNavigation, NavigationPage.l3Navigation);
 
         //add any product from the displayed list to cart
         cartWidgetTest("First product in the list to widget cart", 1);
-
         cartWidgetChangeQty("Cart Widget Quantity change 1", 20);
         cartWidgetChangeQty("Cart Widget Quantity change 2", -10);
-
         cartWidgetDeleteProduct("Cart Widget - remove product");
 
         cartWidgetTest("Tenth product in the list to widget cart", 20);
-
         cartWidgetChangeQty("Cart Widget Quantity change 3", -10);
-
         cartWidgetDeleteProduct("Cart Widget - remove product");
     }
 
@@ -66,12 +49,12 @@ public class CartWidgetTest extends BasePage {
         QuickActions.hover(CartWidgetPage.widgetBtn);
 
         //check that product name and price displayed in the widget match what we intended to add
-        AssertContains(testCaseName,
+        assertContains(testCaseName,
                 "product name",
                 getCartWidgetProdName(),
                 productName);
 
-        AssertEquals(testCaseName,
+        AssertEquals.assertEquals(testCaseName,
                 "product price",
                 getCartWidgetProdPrice(),
                 productPrice);
@@ -167,10 +150,10 @@ public class CartWidgetTest extends BasePage {
         }
 
         //checking that all quantities and totals match the expected values
-        AssertEquals(testCaseName,"cart widget product quantity",expectedCartQuantity, getCartWidgetProdQty());
-        AssertEquals(testCaseName,"widget title product quantity", expectedCartQuantity, getCartWidgetTitleQty());
-        AssertEquals(testCaseName, "cart widget total", expectedCartTotal, getCartWidgetTotal());
-        AssertEquals(testCaseName, "widget title total", expectedCartTotal, getCartWidgetTitleTotal());
+        AssertEquals.assertEquals(testCaseName,"cart widget product quantity",expectedCartQuantity, getCartWidgetProdQty());
+        AssertEquals.assertEquals(testCaseName,"widget title product quantity", expectedCartQuantity, getCartWidgetTitleQty());
+        AssertEquals.assertEquals(testCaseName, "cart widget total", expectedCartTotal, getCartWidgetTotal());
+        AssertEquals.assertEquals(testCaseName, "widget title total", expectedCartTotal, getCartWidgetTitleTotal());
     }
 
     protected static void cartWidgetDeleteProduct(String testCaseName){
@@ -187,7 +170,7 @@ public class CartWidgetTest extends BasePage {
 
 
             //check if it matches expected text (saying cart is empty)
-            AssertEquals(testCaseName,"cart widget title", CartWidgetPage.widgetEmptyMsg, actualWidgetMsg);
+            AssertEquals.assertEquals(testCaseName,"cart widget title", CartWidgetPage.widgetEmptyMsg, actualWidgetMsg);
         } catch (Exception e){
             System.out.println(e);
         }

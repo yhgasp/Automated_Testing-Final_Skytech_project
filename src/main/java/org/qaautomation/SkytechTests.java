@@ -4,9 +4,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.qaautomation.cart.CartWidgetTest;
 import org.qaautomation.login.LoginMethods;
 import org.qaautomation.registration.RegisterTest;
-import org.qaautomation.search.SearchTest;
+import org.qaautomation.search.SearchInputTest;
+import org.qaautomation.search.SearchResultTest;
+import org.qaautomation.search.SearchViewTest;
 import org.qaautomation.utilities.BasePage;
 
 public class SkytechTests extends BasePage {
@@ -23,22 +26,33 @@ public class SkytechTests extends BasePage {
     }
 
     @Test
-    public void searchInputTesting(){
-        SearchTest.runSearchInputCases();
-    }
-
-    @Test
-    public void searchResultTesting(){
-        SearchTest.runSearchResultTestCases();
-    }
-    @Test
     public void registrationTesting(){
         RegisterTest.runRegistrationTestCases();
     }
 
     @Test
+    public void runSearchInputCases(){
+        SearchInputTest.runSearchInputCases();
+    }
+
+    @Test
+    public void searchResultTesting(){
+        SearchResultTest.runSearchResultTestCases();
+    }
+
+    @Test
     public void loginTesting(){
         LoginMethods.runLoginTestCases();
+    }
+
+    @Test
+    public void cartWidgetTesting(){
+        CartWidgetTest.runCartWidgetTests();
+    }
+
+    @Test
+    public void searchResultViewTesting(){
+        SearchViewTest.runViewTests();
     }
 
     @AfterClass
